@@ -43,7 +43,7 @@ $(document).ready(function() {
   };
 
   var show_profile_info = function(profile) {
-     $('.nickname').text(profile.nickname);
+     $('.name').text(profile.name);
      $('.btn-login').hide();
      $('.avatar').attr('src', profile.picture).show();
      $('.btn-logout').show();
@@ -56,3 +56,5 @@ $(document).ready(function() {
 
   retrieve_profile();
 });
+
+var profile_info = JSON.parse(localStorage.profile)
