@@ -7,12 +7,26 @@
 	<body>
 		<p>Welcome</p>
 		<form class="poll-input-form">
-			Poll Question:
-			<input class="poll-question-input" type="text" name="Poll Question" placeholder="Poll Question"></br>
-			<input class="poll-option-input" type="text" name="Option" placeholder="Option"></br>
-			<input class="poll-option-input" type="text" name="Option" placeholder="Option"></br>
-			<input class="poll-option-input" type="text" name="Option" placeholder="Option"></br>
-			<input class="poll-option-input" type="text" name="Option" placeholder="Option"></br>
+			<label for="poll-question-input">
+				Poll Question
+				<input class="poll-question-input " type="text" name="Poll Question"></br>
+			</label>
+			<label for="Option1">
+				Option 1
+				<input class="poll-option-input option-input1" type="text" name="Option1" value=""></br>
+			</label>
+			<label for="Option1">
+				Option 2
+				<input class="poll-option-input option-input2" type="text" name="Option2" value=""></br>
+			</label>
+			<label for="Option1">
+				Option 3
+				<input class="poll-option-input option-input3" type="text" name="Option3" value=""></br>
+			</label>
+			<label for="Option1">
+				Option 4
+				<input class="poll-option-input option-input4" type="text" name="Option4" value=""></br>
+			</label>
 			<input class="poll-submit-btn" type="submit" value="Submit">
 		</form>
 
@@ -22,6 +36,7 @@
     <script src="//cdn.auth0.com/js/lock/10.3.0/lock.min.js"></script>
     <script src="auth0-variables.js"></script>
     <script src="app.js"></script>
+		<script src="auth.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 	 	<script src="/client.js"></script>
 	</body>
