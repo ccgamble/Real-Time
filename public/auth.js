@@ -60,12 +60,13 @@ $(document).ready(function() {
 var profile_info = JSON.parse(localStorage.profile)
 
 
-$(document).on('click', '.poll-submit-btn', (e) => {
-	e.preventDefault()
-	getLoginPage()
-})
+// $(document).on('click', '.poll-submit-btn', (e) => {
+// 	e.preventDefault()
+// 	getLoginPage()
+// 	console.log('hi')
+// })
 
-var getLoginPage = () => {
-	console.log('hello')
-	$.get('/auth')
-}
+// var getLoginPage = () => {
+// 	console.log('hello')
+// 	$.get('/auth')
+// }

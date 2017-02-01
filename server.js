@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const md5 = require('md5')
 
 
 
@@ -72,6 +73,13 @@ app.get('/', (request, response) => {
 app.get('/auth', (request, response) => {
 	response.sendFile('/public/authenticate.html')
 	console.log('authenticating...')
+})
+
+app.post('/new-poll', (request, response) => {
+	const poll_name = request.body.question
+	const poll_id = md5(request.body.question)
+
+	response.send(`<a href='/poll/${poll_id}''>Poll: ${poll_name}</a>`)
 })
 
 
