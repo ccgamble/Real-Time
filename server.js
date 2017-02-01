@@ -1,14 +1,35 @@
+const http = require('http');
 const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/public')));
-app.set('port', process.env.PORT || 3000);
 app.locals.title = 'Real Time';
+
+const port = process.env.PORT || 3000;
+const server = http.createServer(app)
+                 .listen(port, () => {
+                    console.log(`Listening on port ${port}.`);
+                  });
+
+const socketIo = require('socket.io');
+const io = socketIo(server);
+
+io.on('connection', (socket) => {
+  console.log('A user has connected.', io.engine.clientsCount);
+
+  io.sockets.emit('usersConnected', io.engine.clientsCount);
+
+  socket.on('disconnect', () => {
+    console.log('A user has disconnected.', io.engine.clientsCount);
+    io.sockets.emit('usersConnected', io.engine.clientsCount);
+  });
+});
 
 app.locals.poll = {
 	poll_id: 1,
@@ -53,6 +74,5 @@ app.get('/auth', (request, response) => {
 	console.log('authenticating...')
 })
 
-app.listen(app.get('port'), () => {
-  console.log(`${app.locals.title} is running on port ${app.get('port')}.`);
-});
+
+module.exports = server;
