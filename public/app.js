@@ -1,33 +1,21 @@
-$(document).on('click', '.poll-submit-btn', (e) => {
-	e.preventDefault()
+$('.poll-submit-btn').on('click', function() {
 
-	const pollObj = {
-		question: $('.poll-question-input').val(),
-		options: [
-			{
-				id: 1,
-				text: $('.option-input1').val()
-			},
-			{
-				id: 2,
-				text: $('.option-input2').val()
-			},
-			{
-				id: 3,
-				text: $('.option-input3').val()
-			},
-			{
-				id: 4,
-				text: $('option-input4').val()
-			}
-		]
-	};
+
+		const question = $('.poll-question-input').val();
+		const option1 = $('.option-input1').val();
+		const option2 = $('.option-input2').val();
+	 	const option3 = $('.option-input3').val();
+		const option4 = $('option-input4').val();
 
 	$.ajax({
-		url:'/new-poll',
+		url:'/api/poll',
 		type: 'post',
 		data: {
-			pollData: pollObj
+			question: question,
+			option1: option1,
+			option2: option2,
+			option3: option3,
+			option4: option4
 		}
-	})
-})
+	});
+});

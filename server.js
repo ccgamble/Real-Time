@@ -5,8 +5,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const md5 = require('md5')
 
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/public')));
@@ -17,7 +15,7 @@ const server = http.createServer(app)
                  .listen(port, () => {
                     console.log(`Listening on port ${port}.`);
                   });
-
+//
 const socketIo = require('socket.io');
 const io = socketIo(server);
 
@@ -32,39 +30,8 @@ io.on('connection', (socket) => {
   });
 });
 
-// app.locals.poll = {
-// 	poll_id: 1,
-// 	question: "Who will win the Super Bowl?",
-// 	choices: [
-// 		{choice_id: 1,
-// 		option: "New England Patriots"},
-// 		{choice_id: 2,
-// 		option: "Atlanta Falcons"},
-// 		{choice_id: 3,
-// 		option: "I don't care as long as the Patriots lose!"},
-// 		{choice_id: 4,
-// 		option: "What?"}
-// 	],
-// 	votes: [
-// 		{user: "Alex",
-// 		choice_id: 1},
-// 		{user: "Meeka",
-// 		choice_id: 2}
-// 	]
-// }
-//
-// app.locals.users = [
-// 	{user: "Alex",
-// 	user_id: 1,
-// 	photo: "alex.photo.com",
-// 	email: "alex@turing.com",
-// 	github_username: "alex.tideman"},
-// 	{user: "Meeka",
-// 	user_id: 2,
-// 	photo: "meeka.photo.com",
-// 	email: "meeka@turing.com",
-// 	github_username: "meeka.gayhart"}
-// ]
+app.locals.poll = {}
+
 
 app.get('/', (request, response) => {
   response.sendFile(__dirname + '/public/index.html')
@@ -72,8 +39,28 @@ app.get('/', (request, response) => {
 
 app.get('/auth', (request, response) => {
 	response.sendFile('/public/authenticate.html')
-	console.log('authenticating...')
+
 })
+
+app.get('/api/poll', (request, response) => {
+	response.json(app.locals.poll);
+});
+
+app.post('/api/poll', (request, response) => {
+	const { question, option1, option2, option3, option4 } = request.body
+	const poll_id = md5(request.body.question)
+
+	app.locals.poll = {poll_id: poll_id, question: question, option1: option1, option2: option2, option3: option3, option4: option4}
+
+	response.status(202).json({
+		poll_id: poll_id,
+		question: question,
+		option1: option1,
+		option2: option2,
+		option3: option3,
+		option4: option4
+	});
+});
 
 app.post('/new-poll', (request, response) => {
 	const poll_name = request.body.question
@@ -81,6 +68,7 @@ app.post('/new-poll', (request, response) => {
 
 	response.send(`<a href='/poll/${poll_id}''>Poll: ${poll_name}</a>`)
 })
+
 
 
 module.exports = server;
