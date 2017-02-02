@@ -3,14 +3,11 @@
   <head>
     <title>Real Time</title>
     <meta charset="utf-8">
-
     <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
-
     <script src="//cdn.auth0.com/js/lock/10.3.0/lock.min.js"></script>
-
     <script src="auth0-variables.js"></script>
     <script src="app.js"></script>
-
+		<script src="auth.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
@@ -21,5 +18,11 @@
 			<img alt="avatar" class="avatar" style="display:none;">
 	 		<button type="submit" class="btn-logout" style="display:none;">Sign Out</button>
 		</section>
+
+		<div class="poll-container">
+			<p class="poll-question">Question</p>
+			<div class="poll-options">Options</div>
+			<div class="poll-results">Results</div>
+		</div>
   </body>
 </html>
