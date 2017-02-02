@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
   });
 });
 
-app.locals.poll = {}
+app.locals.polls = []
 
 
 app.get('/', (request, response) => {
@@ -43,31 +43,34 @@ app.get('/auth', (request, response) => {
 })
 
 app.get('/api/poll', (request, response) => {
-	response.json(app.locals.poll);
+	response.json(app.locals.polls);
 });
 
 app.post('/api/poll', (request, response) => {
-	const { question, option1, option2, option3, option4 } = request.body
-	const poll_id = md5(request.body.question)
+	const data = request.body
+	const id = md5(data)
+	const poll = {id, data}
 
-	app.locals.poll = {poll_id: poll_id, question: question, option1: option1, option2: option2, option3: option3, option4: option4}
 
-	response.status(202).json({
-		poll_id: poll_id,
-		question: question,
-		option1: option1,
-		option2: option2,
-		option3: option3,
-		option4: option4
-	});
+	app.locals.polls.push(poll)
+	response.redirect(`/api/poll/${id}`)
 });
 
-app.post('/new-poll', (request, response) => {
-	const poll_name = request.body.question
-	const poll_id = md5(request.body.question)
+app.get('/api/poll/:id', (request, response) => {
+	var data = app.locals.polls.filter((poll) => {
+    return poll.id === request.params.id
+  })
+  response.json(data)
 
-	response.send(`<a href='/poll/${poll_id}''>Poll: ${poll_name}</a>`)
 })
+
+// app.post('/new-poll', (request, response) => {
+// 	const poll_name = request.body.question
+// 	const id = md5(request.body.question)
+//
+// 	response.send(`<a href='/poll/${id}''>Poll: ${poll_name}</a>`)
+//
+// })
 
 
 
