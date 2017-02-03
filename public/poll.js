@@ -1,3 +1,5 @@
+const socket = io();
+
 $(document).ready(function() {
 	// $.ajax({
 	// 	type: 'GET',
@@ -45,3 +47,7 @@ function renderPoll(poll) {
 function redirect(poll){
 	window.history.pushState("", "", `/api/poll/${poll.id}`)
 }
+
+socket.on('usersConnected', (count) => {
+	$('.connection-count').innerText = 'Connected Users: ' + count;
+})
