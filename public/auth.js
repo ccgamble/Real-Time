@@ -7,6 +7,7 @@ $(document).ready(function() {
   });
 
   $('.btn-login').click(function(e) {
+		console.log('hello')
     e.preventDefault();
     lock.show();
   });
@@ -56,17 +57,3 @@ $(document).ready(function() {
 
   retrieve_profile();
 });
-
-var profile_info = JSON.parse(localStorage.profile)
-
-
-// $(document).on('click', '.poll-submit-btn', (e) => {
-// 	e.preventDefault()
-// 	getLoginPage()
-// 	console.log('hi')
-// })
-
-// var getLoginPage = () => {
-// 	console.log('hello')
-// 	$.get('/auth')
-// }

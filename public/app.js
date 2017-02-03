@@ -10,6 +10,7 @@ $('.poll-submit-btn').on('click', function(e) {
 	$.ajax({
 		url:'/api/poll/',
 		type: 'post',
+		dataType: 'json',
 		data: {
 			question: question,
 			option1: option1,
@@ -23,6 +24,6 @@ $('.poll-submit-btn').on('click', function(e) {
 
 postURL = (poll) => {
 	console.log(poll[0].id)
-	 $('body').append(`<a href ='/api/poll/${poll[0].id}'>Poll Link</a>
+	 $('body').append(`<a href ='/poll/${poll[0].id}'>Poll Link</a>
 	 										<a href='/poll.html'>Login</a>`)
 }

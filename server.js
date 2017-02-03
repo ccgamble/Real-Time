@@ -8,7 +8,6 @@ const md5 = require('md5')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/public')));
-app.use('/poll/:id', express.static(path.join(__dirname, 'public/poll')));
 app.locals.title = 'Real Time';
 
 const port = process.env.PORT || 3000;
@@ -43,8 +42,12 @@ app.get('/auth', (request, response) => {
 })
 
 app.get('/poll', (request, response) => {
-  response.sendfile(__dirname + '/public/poll.html')
+  response.sendFile(__dirname + '/public/poll.html')
 })
+
+app.get('/poll/:id', (request, response) => {
+  response.sendFile(__dirname + '/public/poll.html')
+});
 
 app.get('/api/poll', (request, response) => {
 	response.json(app.locals.polls);
@@ -65,8 +68,6 @@ app.get('/api/poll/:id', (request, response) => {
     return poll.id === request.params.id
   })
   response.json(data)
-	response.sendfile(__dirname + '/public/poll.html')
-
 })
 
 
