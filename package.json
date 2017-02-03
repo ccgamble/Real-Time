@@ -17,13 +17,16 @@
   },
   "homepage": "https://github.com/ccgamble/Real-Time#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "socket.io": "^1.7.2"
   },
   "devDependencies": {
     "body-parser": "^1.16.0",
     "express": "^4.14.1",
+    "io": "^0.1.10",
     "jquery": "^3.1.1",
     "jsdom": "^9.9.1",
+    "lodash": "^4.17.4",
     "md5": "^2.2.1",
     "socket.io": "^1.7.2"
   }

@@ -4,6 +4,7 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const md5 = require('md5')
+const _ = require('lodash');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,21 +17,33 @@ const server = http.createServer(app)
                     console.log(`Listening on port ${port}.`);
                   });
 //
+//
+const votes = {};
 const socketIo = require('socket.io');
 const io = socketIo(server);
 
 io.on('connection', (socket) => {
   console.log('A user has connected.', io.engine.clientsCount);
+	io.sockets.emit('usersConnected', io.engine.clientsCount);
 
-  io.sockets.emit('usersConnected', io.engine.clientsCount);
+	socket.emit('statusMessage', 'You have connected.');
+
+	// socket.on('message', (channel, message) => {
+  // if (channel === 'voteCast') {
+  //   votes[socket.id] = message;
+  //   socket.emit('voteCount', countVotes(votes));
+  // 	}
+	// });
 
   socket.on('disconnect', () => {
     console.log('A user has disconnected.', io.engine.clientsCount);
-    io.sockets.emit('usersConnected', io.engine.clientsCount);
-  });
+		// delete votes[socket.id];
+		// socket.emit('voteCount', countVotes(votes));
+		io.sockets.emit('usersConnected', io.engine.clientsCount);
+	})
 });
 
-app.locals.poll = {}
+app.locals.polls = []
 
 
 app.get('/', (request, response) => {
@@ -39,36 +52,37 @@ app.get('/', (request, response) => {
 
 app.get('/auth', (request, response) => {
 	response.sendFile('/public/authenticate.html')
-
 })
 
+app.get('/poll', (request, response) => {
+  response.sendFile(__dirname + '/public/poll.html')
+})
+
+app.get('/poll/:id', (request, response) => {
+  response.sendFile(__dirname + '/public/poll.html')
+});
+
+
 app.get('/api/poll', (request, response) => {
-	response.json(app.locals.poll);
+	response.json(app.locals.polls);
 });
 
 app.post('/api/poll', (request, response) => {
-	const { question, option1, option2, option3, option4 } = request.body
-	const poll_id = md5(request.body.question)
+	const data = request.body
+	const id = md5(data)
+	const poll = {id, data}
 
-	app.locals.poll = {poll_id: poll_id, question: question, option1: option1, option2: option2, option3: option3, option4: option4}
 
-	response.status(202).json({
-		poll_id: poll_id,
-		question: question,
-		option1: option1,
-		option2: option2,
-		option3: option3,
-		option4: option4
-	});
+	app.locals.polls.push(poll)
+	response.redirect(`/api/poll/${id}`)
 });
 
-app.post('/new-poll', (request, response) => {
-	const poll_name = request.body.question
-	const poll_id = md5(request.body.question)
-
-	response.send(`<a href='/poll/${poll_id}''>Poll: ${poll_name}</a>`)
+app.get('/api/poll/:id', (request, response) => {
+	var data = app.locals.polls.filter((poll) => {
+    return poll.id === request.params.id
+  })
+  response.json(data)
 })
-
 
 
 module.exports = server;
