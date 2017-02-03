@@ -12,27 +12,34 @@ $(document).ready(function() {
   }).then(function(response) {
     let poll = response[0]
     renderPoll(poll);
-		redirect(poll)
+		// redirect(poll)
   });
 });
 
+$('.btn-login').on('click', function() {
+	renderPoll(poll)
+})
+
 function renderPoll(poll) {
-	console.log('rendering')
-  $('.poll-question').append(
-    `<h3>${poll.data.question}</h3>`
-	);
-  $('.poll-options').append(
-    `<button class=option-button type=button>${poll.data.option1}</button>`
-  );
-	$('.poll-options').append(
-		`<button class=option-button type=button>${poll.data.option2}</button>`
-	);
-	$('.poll-options').append(
-		`<button class=option-button type=button>${poll.data.option3}</button>`
-	);
-	$('.poll-options').append(
-		`<button class=option-button type=button>${poll.data.option4}</button>`
-	);
+	if(!$('.btn-login').is(':visible')) {
+		$('.poll-container').hide()
+	} else {
+	  $('.poll-question').append(
+	    `<h3>${poll.data.question}</h3>`
+		);
+	  $('.poll-options').append(
+	    `<button class=option-button type=button>${poll.data.option1}</button>`
+	  );
+		$('.poll-options').append(
+			`<button class=option-button type=button>${poll.data.option2}</button>`
+		);
+		$('.poll-options').append(
+			`<button class=option-button type=button>${poll.data.option3}</button>`
+		);
+		$('.poll-options').append(
+			`<button class=option-button type=button>${poll.data.option4}</button>`
+		);
+	}
 }
 
 function redirect(poll){

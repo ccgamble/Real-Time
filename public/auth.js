@@ -7,7 +7,6 @@ $(document).ready(function() {
   });
 
   $('.btn-login').click(function(e) {
-		console.log('hello')
     e.preventDefault();
     lock.show();
   });

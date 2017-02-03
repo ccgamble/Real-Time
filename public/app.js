@@ -22,6 +22,10 @@ $('.poll-submit-btn').on('click', function(e) {
 	});
 });
 
+
+	// redirect = (poll) => {
+	// 	window.location = `/poll/?${poll[0].id}`
+	// }
 postURL = (poll) => {
 	console.log(poll[0].id)
 	 $('body').append(`<a href ='/poll/${poll[0].id}'>Poll Link</a>
