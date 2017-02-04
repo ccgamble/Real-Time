@@ -1,4 +1,5 @@
 $('.poll-submit-btn').on('click', function(e) {
+
 	e.preventDefault()
 
 		const question = $('.poll-question-input').val();
@@ -8,7 +9,7 @@ $('.poll-submit-btn').on('click', function(e) {
 		const option4 = $('.option-input4').val();
 
 	$.ajax({
-		url:'/api/poll/',
+		url:'/api/poll',
 		type: 'post',
 		dataType: 'json',
 		data: {
@@ -23,11 +24,8 @@ $('.poll-submit-btn').on('click', function(e) {
 });
 
 
-	// redirect = (poll) => {
-	// 	window.location = `/poll/?${poll[0].id}`
-	// }
-postURL = (poll) => {
-	console.log(poll[0].id)
-	 $('body').append(`<a href ='/poll/${poll[0].id}'>Poll Link</a>
+postURL = (response) => {
+	console.log(response.poll.id)
+	 $('body').append(`<a href ='/poll/${response.poll.id}'>Poll Link</a>
 	 										<a href='/poll.html'>Login</a>`)
 }

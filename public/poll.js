@@ -1,28 +1,20 @@
-const socket = io();
-
 $(document).ready(function() {
-	// $.ajax({
-	// 	type: 'GET',
-	// 	url: '/poll'
-	// }).then(function(response) {
-	// 	console.log(response)
-	// })
 
   $.ajax({
     type: 'GET',
     url: '/api/poll'
   }).then(function(response) {
-    let poll = response[0]
-    renderPoll(poll);
+    const poll = response[0]
+    renderPoll(poll)
 		// redirect(poll)
   });
 });
 
-$('.btn-login').on('click', function() {
-	renderPoll(poll)
-})
+
 
 function renderPoll(poll) {
+
+	console.log(poll)
 	if(!$('.btn-login').is(':visible')) {
 		$('.poll-container').hide()
 	} else {
@@ -48,6 +40,6 @@ function redirect(poll){
 	window.history.pushState("", "", `/api/poll/${poll.id}`)
 }
 
-socket.on('usersConnected', (count) => {
-	$('.connection-count').innerText = 'Connected Users: ' + count;
-})
+// socket.on('usersConnected', (count) => {
+// 	$('.connection-count').innerText = 'Connected Users: ' + count;
+// })
