@@ -50,15 +50,12 @@ app.get('/', (request, response) => {
   response.sendFile(__dirname + '/public/index.html')
 })
 
-app.get('/auth', (request, response) => {
-	response.sendFile('/public/authenticate.html')
-})
 
 app.get('/poll', (request, response) => {
   response.sendFile(__dirname + '/public/poll.html')
 })
 
-app.get('/poll/:id', (request, response) => {
+app.get('/poll/*', (request, response) => {
   response.sendFile(__dirname + '/public/poll.html')
 });
 
@@ -68,13 +65,14 @@ app.get('/api/poll', (request, response) => {
 });
 
 app.post('/api/poll', (request, response) => {
+	response.setHeader("Content-Type", "application/json");
 	const data = request.body
 	const id = md5(data)
 	const poll = {id, data}
 
 
 	app.locals.polls.push(poll)
-	response.redirect(`/api/poll/${id}`)
+	response.status(200).json({poll})
 });
 
 app.get('/api/poll/:id', (request, response) => {
