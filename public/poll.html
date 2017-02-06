@@ -2,6 +2,7 @@
   <head>
     <title>Real Time</title>
     <meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="/styles.css">
     <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="//cdn.auth0.com/js/lock/10.3.0/lock.min.js"></script>
     <script src="/auth0-variables.js"></script>
@@ -12,16 +13,23 @@
   </head>
   <body>
 
-		<section class="authentication-container">
+		<!-- <section class="authentication-container">
 			<p>Welcome <span class="name"></span></p>
 	 		<button type="submit" class="btn-login">Sign In</button>
 			<img alt="avatar" class="avatar" style="display:none;">
 	 		<button type="submit" class="btn-logout" style="display:none;">Sign Out</button>
-		</section>
+		</section> -->
 
 		<div class="poll-container">
 			<p class="poll-question"></p>
-			<div class="poll-options"></div>
+			<div class="poll-options">
+				<div class="poll-question"></div>
+				<button type="button" class="option-button button1"></button>
+				<button type="button" class="option-button button2"></button>
+				<button type="button" class="option-button button3"></button>
+				<button type="button" class="option-button button4"></button>
+			</div>
+
 			<div id="poll-results">Results</div>
 		</div>
 
