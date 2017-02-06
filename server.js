@@ -28,19 +28,19 @@ io.on('connection', (socket) => {
 
 	socket.emit('statusMessage', 'You have connected.');
 
-	// socket.on('message', (channel, message) => {
-  // if (channel === 'voteCast') {
-  //   votes[socket.id] = message;
-  //   socket.emit('voteCount', countVotes(votes));
-  // 	}
-	// });
+	socket.on('message', (channel, message) => {
+	  if (channel === 'voteCast') {
+	    votes[socket.id] = message;
+	    socket.emit('voteCount', votes)
+	  }
+	});
 
-  socket.on('disconnect', () => {
-    console.log('A user has disconnected.', io.engine.clientsCount);
-		// delete votes[socket.id];
-		// socket.emit('voteCount', countVotes(votes));
-		io.sockets.emit('usersConnected', io.engine.clientsCount);
-	})
+	socket.on('disconnect', () => {
+	  console.log('A user has disconnected.', io.engine.clientsCount);
+	  delete votes[socket.id];
+	  socket.emit('voteCount', votes)
+	  io.sockets.emit('usersConnected', io.engine.clientsCount);
+	});
 });
 
 app.locals.polls = []

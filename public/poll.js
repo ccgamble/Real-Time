@@ -47,6 +47,23 @@ socket.on('statusMessage', (message) => {
 
 	for (let i = 0; i < buttons.length; i++) {
 	  buttons[i].addEventListener('click', function() {
-	    console.log(this.innerText);
+	    socket.send('voteCast', this.innerText)
 	  });
+	}
+
+	socket.on('voteCount', (votes) => {
+	countVotes(votes)
+  // console.log(votes);
+})
+
+	function countVotes(votes) {
+
+		voteCount1 = 0
+		return Object.values(votes).filter(function(option) {
+			// debugger
+			if (option === $('.button1').text()) {
+				voteCount1 =+ 1
+		}
+		console.log(voteCount1)
+		})
 	}
