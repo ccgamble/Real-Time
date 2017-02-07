@@ -12,7 +12,6 @@ $(document).ready(function() {
   }).then(function(response) {
     const poll = response[0]
     renderPoll(poll)
-		// redirect(poll)
   });
 });
 

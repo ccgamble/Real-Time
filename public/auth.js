@@ -23,7 +23,6 @@ $(document).ready(function() {
         return;
       }
       localStorage.setItem('id_token', authResult.idToken);
-      // Display user information
       show_profile_info(profile);
     });
   });
@@ -47,11 +46,13 @@ $(document).ready(function() {
      $('.btn-login').hide();
      $('.avatar').attr('src', profile.picture).show();
      $('.btn-logout').show();
+		 localStorage.setItem('photo', profile.picture);
+		 localStorage.setItem('name', profile.name);
   };
 
   var logout = function() {
     localStorage.removeItem('id_token');
-    window.location.href = "/";
+    window.location.href = "/poll";
   };
 
   retrieve_profile();
