@@ -22,28 +22,10 @@ const votes = {};
 const socketIo = require('socket.io');
 const io = socketIo(server);
 
-io.on('connection', (socket) => {
-  console.log('A user has connected.', io.engine.clientsCount);
-	io.sockets.emit('usersConnected', io.engine.clientsCount);
 
-	socket.emit('statusMessage', 'You have connected.');
-
-	// socket.on('message', (channel, message) => {
-  // if (channel === 'voteCast') {
-  //   votes[socket.id] = message;
-  //   socket.emit('voteCount', countVotes(votes));
-  // 	}
-	// });
-
-  socket.on('disconnect', () => {
-    console.log('A user has disconnected.', io.engine.clientsCount);
-		// delete votes[socket.id];
-		// socket.emit('voteCount', countVotes(votes));
-		io.sockets.emit('usersConnected', io.engine.clientsCount);
-	})
-});
 
 app.locals.polls = []
+app.locals.votes = []
 
 
 app.get('/', (request, response) => {
@@ -81,6 +63,42 @@ app.get('/api/poll/:id', (request, response) => {
   })
   response.json(data)
 })
+
+io.on('connection', (socket) => {
+  console.log('A user has connected.', io.engine.clientsCount);
+	io.sockets.emit('usersConnected', io.engine.clientsCount);
+
+	socket.emit('statusMessage', 'You have connected.');
+
+	socket.on('voteCast', (id, photo, name) => {
+		countVotes(id, photo, name)
+		socket.emit('statusMessage', 'Thanks for voting!')
+		io.sockets.emit('voteUpdate', id, photo, app.locals.votes)
+
+	});
+
+	socket.on('disconnect', () => {
+	  console.log('A user has disconnected.', io.engine.clientsCount);
+	  delete votes[socket.id];
+	  socket.emit('voteCount', votes)
+	  io.sockets.emit('usersConnected', io.engine.clientsCount);
+	});
+});
+
+const countVotes = (id, photo, name) => {
+	const vote_id = app.locals.votes.length + 1
+	const filterVote = app.locals.votes.filter(vote => vote.name !== name)
+		app.locals.votes = filterVote
+		app.locals.votes.push({
+			vote_id : vote_id,
+			button_id: id,
+			photo: photo,
+			name: name
+		})
+		return app.locals.votes
+	}
+
+
 
 
 module.exports = server;

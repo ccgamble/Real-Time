@@ -2,8 +2,10 @@
   <head>
     <title>Real Time</title>
     <meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="/reset.css">
+		<link rel="stylesheet" type="text/css" href="/styles.css">
+		<script src="//cdn.auth0.com/js/lock/10.3.0/lock.min.js"></script>
     <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script src="//cdn.auth0.com/js/lock/10.3.0/lock.min.js"></script>
     <script src="/auth0-variables.js"></script>
     <script src="/app.js"></script>
 		<script src="/auth.js"></script>
@@ -21,16 +23,26 @@
 
 		<div class="poll-container">
 			<p class="poll-question"></p>
-			<div class="poll-options"></div>
+			<div class="poll-options">
+				<button type="button" class="option-button" id="button1"></button>
+				<button type="button" class="option-button" id="button2"></button>
+				<button type="button" class="option-button" id="button3"></button>
+				<button type="button" class="option-button" id="button4"></button>
+			</div>
+
 			<div id="poll-results">Results</div>
-		</div>
+				<div id="vote-update"></div>
+				<div class="button1_results">Option 1: </div>
+				<div class="button2_results">Option 2: </div>
+				<div class="button3_results">Option 3: </div>
+				<div class="button4_results">Option 4: </div>
+
+			</div>
 
 		<div id="connection-count"></div>
 		<div id="status-message"></div>
 
+	  <script src="/socket.io/socket.io.js"></script>
 		<script src="/poll.js"></script>
-		 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-		<script src="/socket.io/socket.io.js"></script>
-		<div>Hello</div>
   </body>
 </html>
