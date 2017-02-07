@@ -2,13 +2,14 @@ $(document).ready(function() {
 
   var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
     auth: {
-      params: { scope: 'openid email' } //Details: https://auth0.com/docs/scopes
+      params: { scope: 'openid email' }
     }
   });
 
   $('.btn-login').click(function(e) {
     e.preventDefault();
     lock.show();
+		$('.poll-container').show()
   });
 
   $('.btn-logout').click(function(e) {
@@ -52,7 +53,7 @@ $(document).ready(function() {
 
   var logout = function() {
     localStorage.removeItem('id_token');
-    window.location.href = "/poll";
+    window.location.href = "/";
   };
 
   retrieve_profile();
