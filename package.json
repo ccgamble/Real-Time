@@ -4,7 +4,7 @@
   "description": "A real-time polling application",
   "main": "server.js",
   "scripts": {
-    "test": "test"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
