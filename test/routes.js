@@ -5,6 +5,18 @@ var server = require('../server.js');
 
 chai.use(chaiHttp);
 
+describe('GET /', function() {
+	it('should return homepage', function(done) {
+		chai.request(server)
+		.get('/')
+		.end(function(error,response) {
+			response.should.have.status(200);
+			response.should.be.html;
+			done();
+		});
+	});
+});
+
 describe('GET /api/poll/:id', function() {
 	it('should return the poll', function(done) {
 		chai.request(server)
@@ -12,6 +24,30 @@ describe('GET /api/poll/:id', function() {
 		.end(function(error,response) {
 			response.should.have.status(200);
 			response.body.should.be.eql([]);
+			done();
+		});
+	});
+});
+
+describe('GET /api/poll', function() {
+	it('should return an array of polls', function(done) {
+		chai.request(server)
+		.get('/api/poll')
+		.end(function(error,response) {
+			response.should.have.status(200);
+			response.body.should.be.eql([]);
+			done();
+		});
+	});
+});
+
+describe('GET /poll', function() {
+	it('should return an array of polls', function(done) {
+		chai.request(server)
+		.get('/poll')
+		.end(function(error,response) {
+			response.should.have.status(200);
+			response.should.be.html;
 			done();
 		});
 	});
