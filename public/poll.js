@@ -12,18 +12,10 @@ $(document).ready(function() {
   }).then(function(response) {
     const poll = response[0]
     renderPoll(poll)
-		displayPoll()
+
   });
 });
 
-function signedIn() {
-	if (localStorage.getItem('id_token') !== null)
-	return true
-}
-
-function displayPoll() {
-	signedIn() ? $('.poll-container').show() : $('.poll-container').hide()
-}
 
 function renderPoll(poll) {
 		$('.poll-question').text(poll.data.question)

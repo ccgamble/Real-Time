@@ -5,3 +5,7 @@
 .vote-photo {
 	height: 30px;
 }
+
+.poll-container {
+	display: none;
+}

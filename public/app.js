@@ -25,6 +25,5 @@ $('.poll-submit-btn').on('click', function(e) {
 
 
 postURL = (response) => {
-	console.log(response.poll.id)
 	 $('body').append(`<a href ='/poll/?poll=${response.poll.id}'>Poll Link</a>`)
 }

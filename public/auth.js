@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+	localStorage.clear()
   var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, {
     auth: {
       params: { scope: 'openid email' }
@@ -9,7 +9,7 @@ $(document).ready(function() {
   $('.btn-login').click(function(e) {
     e.preventDefault();
     lock.show();
-		$('.poll-container').show()
+		retrieve_profile()
   });
 
   $('.btn-logout').click(function(e) {
@@ -20,15 +20,14 @@ $(document).ready(function() {
   lock.on("authenticated", function(authResult) {
     lock.getProfile(authResult.idToken, function(error, profile) {
       if (error) {
-        // Handle error
         return;
       }
       localStorage.setItem('id_token', authResult.idToken);
       show_profile_info(profile);
     });
+		$('.poll-container').show()
   });
 
-  //retrieve the profile:
   var retrieve_profile = function() {
     var id_token = localStorage.getItem('id_token');
     if (id_token) {
@@ -36,7 +35,6 @@ $(document).ready(function() {
         if (err) {
           return alert('There was an error getting the profile: ' + err.message);
         }
-        // Display user information
         show_profile_info(profile);
       });
     }
@@ -56,5 +54,5 @@ $(document).ready(function() {
     window.location.href = "/";
   };
 
-  retrieve_profile();
+
 });

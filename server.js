@@ -72,7 +72,6 @@ io.on('connection', (socket) => {
 
 	socket.on('voteCast', (id, photo, name) => {
 		countVotes(id, photo, name)
-		console.log(app.locals.votes)
 		socket.emit('statusMessage', 'Thanks for voting!')
 		io.sockets.emit('voteUpdate', id, photo, app.locals.votes)
 
