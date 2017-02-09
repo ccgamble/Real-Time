@@ -72,6 +72,7 @@ io.on('connection', (socket) => {
 
 	socket.on('voteCast', (id, photo, name) => {
 		countVotes(id, photo, name)
+		console.log(app.locals.votes)
 		socket.emit('statusMessage', 'Thanks for voting!')
 		io.sockets.emit('voteUpdate', id, photo, app.locals.votes)
 
@@ -86,7 +87,7 @@ io.on('connection', (socket) => {
 });
 
 const countVotes = (id, photo, name) => {
-	const vote_id = app.locals.votes.length + 1
+	const vote_id = md5(name)
 	const filterVote = app.locals.votes.filter(vote => vote.name !== name)
 		app.locals.votes = filterVote
 		app.locals.votes.push({
@@ -97,8 +98,6 @@ const countVotes = (id, photo, name) => {
 		})
 		return app.locals.votes
 	}
-
-
 
 
 module.exports = server;
