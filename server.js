@@ -47,9 +47,11 @@ app.get('/api/poll', (request, response) => {
 
 app.post('/api/poll', (request, response) => {
 	response.setHeader("Content-Type", "application/json");
-	const data = request.body
-	const id = md5(data)
+	const data = (request.body)
+	const id = md5(request.body.question)
 	const poll = {id, data}
+	console.log(poll)
+
 
 
 	app.locals.polls.push(poll)
