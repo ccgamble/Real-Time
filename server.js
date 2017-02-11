@@ -50,7 +50,6 @@ app.post('/api/poll', (request, response) => {
 	const data = (request.body)
 	const id = md5(request.body.question)
 	const poll = {id, data}
-	console.log(poll)
 
 
 

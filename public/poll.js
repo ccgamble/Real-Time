@@ -3,16 +3,16 @@ const connectionCount = $('#connection-count');
 const statusMessage = $('#status-message');
 const buttons = document.querySelectorAll('.option-button')
 const voteUpdate = $('#vote-update')
+const id = window.location.search.split('=')[1]
 
 
 $(document).ready(function() {
   $.ajax({
     type: 'GET',
-    url: '/api/poll'
+    url: `/api/poll/${id}`
   }).then(function(response) {
     const poll = response[0]
     renderPoll(poll)
-
   });
 });
 
