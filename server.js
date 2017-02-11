@@ -16,8 +16,7 @@ const server = http.createServer(app)
                  .listen(port, () => {
                     console.log(`Listening on port ${port}.`);
                   });
-//
-//
+
 const votes = {};
 const socketIo = require('socket.io');
 const io = socketIo(server);
