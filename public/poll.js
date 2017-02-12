@@ -41,10 +41,11 @@ socket.on('voteUpdate', (id, image, votes) => {
 	$('.vote-photo').remove();
 
 	votes.map(vote => {
-		return $(`.${vote.button_id}_results`).append(`<img
-														src=${vote.photo}
-														alt="user image"
-														class="vote-photo"
-													/>`);
+		return $(`.${vote.button_id}_results`)
+			.append(`<img src=${vote.photo}
+								alt="user image"
+								class="vote-photo"
+							/>`
+						);
 	});
 });
