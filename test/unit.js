@@ -4,7 +4,7 @@ var should = chai.should();
 var assert = chai.assert;
 
 describe('it exists', () => {
-  it('works', () => {
+	it('works', () => {
 		assert.equal(2,2)
 	});
 });

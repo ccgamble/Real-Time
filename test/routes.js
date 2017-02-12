@@ -54,21 +54,21 @@ describe('GET /poll', function() {
 });
 
 describe('POST /api/poll', function() {
-  it('should create a new poll', function(done) {
-    const poll1 = {
-			question: "Who will win the Super Bowl?",
-			option1: "Atlanta Falcons",
-			option2: "New England Patriots",
-			option3: "I don't care",
-			option4: "Left Shark"
-		}
+	it('should create a new poll', function(done) {
+		const poll1 = {
+			question: 'Who will win the Super Bowl?',
+			option1: 'Atlanta Falcons',
+			option2: 'New England Patriots',
+			option3: 'I dont care',
+			option4: 'Left Shark'
+		};
 		const poll2 = {
-			question: "What's for lunch?",
-			option1: "pizza",
-			option2: "burgers",
-			option3: "salad",
-			option4: "idk"
-		}
+			question: 'Whats for lunch?',
+			option1: 'pizza',
+			option2: 'burgers',
+			option3: 'salad',
+			option4: 'idk'
+		};
 		chai.request(server)
 		.post('/api/poll')
 		.end(function(error, response) {
