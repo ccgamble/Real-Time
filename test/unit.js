@@ -5,6 +5,6 @@ var assert = chai.assert;
 
 describe('it exists', () => {
   it('works', () => {
-		assert.equal(2,2)
-	});
+    assert.equal(2,2)
+  });
 });
