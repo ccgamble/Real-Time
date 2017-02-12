@@ -21,6 +21,7 @@ function renderPoll(poll) {
 	$('#button4').text(poll.data.option4);
 }
 
+
 $(document).on('click', '.option-button', function() {
 	let id = $(this).attr('id');
 	let photo = localStorage.getItem('photo');
