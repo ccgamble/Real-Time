@@ -4,6 +4,10 @@ const statusMessage = $('#status-message');
 const id = window.location.search.split('=')[1];
 
 $(document).ready(function() {
+  getPoll();
+});
+
+getPoll = () => {
   $.ajax({
     type: 'GET',
     url: `/api/poll/${id}`
@@ -11,16 +15,15 @@ $(document).ready(function() {
     const poll = response[0];
     renderPoll(poll);
   });
-});
+}
 
-function renderPoll(poll) {
+renderPoll = (poll) => {
   $('.poll-question').text(poll.data.question);
   $('#button1').text(poll.data.option1);
   $('#button2').text(poll.data.option2);
   $('#button3').text(poll.data.option3);
   $('#button4').text(poll.data.option4);
 }
-
 
 $(document).on('click', '.option-button', function() {
   let id = $(this).attr('id');
@@ -40,7 +43,10 @@ socket.on('statusMessage', (message) => {
 
 socket.on('voteUpdate', (id, image, votes) => {
   $('.vote-photo').remove();
+  renderUserImage(votes)
+});
 
+renderUserImage = (votes) => {
   votes.map(vote => {
     return $(`.${vote.button_id}_results`)
       .append(`<img src=${vote.photo}
@@ -49,4 +55,4 @@ socket.on('voteUpdate', (id, image, votes) => {
               />`
             );
   });
-});
+}
