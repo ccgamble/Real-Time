@@ -53,29 +53,47 @@ describe('GET /poll', function() {
   });
 });
 
-describe('POST /api/poll', function() {
-  it('should create a new poll', function(done) {
-    const poll1 = {
-      question: 'Who will win the Super Bowl?',
-      option1: 'Atlanta Falcons',
-      option2: 'New England Patriots',
-      option3: 'I dont care',
-      option4: 'Left Shark'
-    };
-    const poll2 = {
-      question: 'Whats for lunch?',
-      option1: 'pizza',
-      option2: 'burgers',
-      option3: 'salad',
-      option4: 'idk'
-    };
+describe('POST api/poll and GET /api/poll/:id' , function() {
+  let poll1 = {
+    question: 'Who will win the Super Bowl?',
+    option1: 'Atlanta Falcons',
+    option2: 'New England Patriots',
+    option3: 'I dont care',
+    option4: 'Left Shark'
+  }
+  let poll2 = {
+    question: 'Whats for lunch?',
+    option1: 'salad',
+    option2: 'burgers',
+    option3: 'pizza',
+    option4: 'nothing'
+  }
+  
+  it('should crate a new poll', function(done) {
+
     chai.request(server)
     .post('/api/poll')
+    .send(poll1)
+    .send(poll2)
+    .end((error, response) => {
+      response.should.have.status(200);
+      response.body.should.be.a('object');
+      response.body.poll.should.have.property('id');
+      response.body.poll.should.have.property('data');
+      done();
+    });
+  });
+
+  it('should render requested poll2', function(done) {
+
+    chai.request(server)
+    .get('/api/poll/d3660efa146f83bf6ec9b8b89c72614a')
     .end(function(error, response) {
+      console.log(response.body)
       response.should.have.status(200);
       response.should.be.json;
-      response.body.should.be.a('object');
-      
+      response.body.should.be.a('array');
+      response.body[0].should.have.property('data').eql(poll2)
       done();
     });
   });
