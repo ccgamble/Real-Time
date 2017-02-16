@@ -18,6 +18,7 @@
   "homepage": "https://github.com/ccgamble/Real-Time#readme",
   "dependencies": {
     "body-parser": "^1.16.0",
+    "chai": "^3.5.0",
     "express": "^4.14.0",
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
