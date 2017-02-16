@@ -54,14 +54,14 @@ describe('GET /poll', function() {
 });
 
 describe('POST api/poll and GET /api/poll/:id' , function() {
-  let poll1 = {
+  var poll1 = {
     question: 'Who will win the Super Bowl?',
     option1: 'Atlanta Falcons',
     option2: 'New England Patriots',
     option3: 'I dont care',
     option4: 'Left Shark'
   }
-  let poll2 = {
+  var poll2 = {
     question: 'Whats for lunch?',
     option1: 'salad',
     option2: 'burgers',
