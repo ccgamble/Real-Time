@@ -89,7 +89,6 @@ describe('POST api/poll and GET /api/poll/:id' , function() {
     chai.request(server)
     .get('/api/poll/d3660efa146f83bf6ec9b8b89c72614a')
     .end(function(error, response) {
-      console.log(response.body)
       response.should.have.status(200);
       response.should.be.json;
       response.body.should.be.a('array');

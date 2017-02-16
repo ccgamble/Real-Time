@@ -9,7 +9,6 @@ $(document).ready(function() {
 });
 
 $(document).on('click', '.btn-login', function(e) {
-  console.log('logging in')
   e.preventDefault();
   lock.show();
   retrieve_profile();

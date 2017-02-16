@@ -2,9 +2,14 @@ var express = require('express');
 var chai = require('chai');
 var should = chai.should();
 var assert = chai.assert;
+var countVotes = require('../public/countVotes.js')
 
-describe('it exists', () => {
-  it('works', () => {
-    assert.equal(2,2)
+describe('countVotes', function()  {
+  xit('pushes votes into vote array', () => {
+    var testArray = []
+    countVotes(1, 'christinegamble.jpg', 'Christine', [])
+    
+    
+    assert.equal(app, '')
   });
 });
