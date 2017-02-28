@@ -14,7 +14,7 @@ $(document).on('click', '.btn-login', function(e) {
   retrieve_profile();
 });
 
-$('.btn-logout').click(function(e) {
+$(document).on('click', '.btn-logout', function(e) {
   e.preventDefault();
   logout();
 });

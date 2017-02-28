@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const md5 = require('md5');
-const countVotes = require('./public/countVotes.js')
+
 
 
 app.use(bodyParser.json());
@@ -14,7 +14,7 @@ app.locals.title = 'Real Time';
 app.locals.polls = [];
 app.locals.votes = [];
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const server = http.createServer(app)
                  .listen(port, () => {console.log(`Listening on port ${port}.`);
 });
@@ -77,17 +77,17 @@ io.on('connection', (socket) => {
 	});
 });
 
-// const countVotes = (id, photo, name) => {
-// 	const vote_id = md5(name);
-// 	const filterVote = app.locals.votes.filter(vote => vote.name !== name);
-// 	app.locals.votes = filterVote;
-// 	app.locals.votes.push({
-// 		vote_id : vote_id,
-// 		button_id: id,
-// 		photo: photo,
-// 		name: name
-// 	});
-// 	return app.locals.votes;
-// };
+const countVotes = (id, photo, name) => {
+	const vote_id = md5(name);
+	const filterVote = app.locals.votes.filter(vote => vote.name !== name);
+	app.locals.votes = filterVote;
+	app.locals.votes.push({
+		vote_id : vote_id,
+		button_id: id,
+		photo: photo,
+		name: name
+	});
+	return app.locals.votes;
+};
 
 module.exports = server;

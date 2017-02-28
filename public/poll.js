@@ -49,10 +49,6 @@ socket.on('voteUpdate', (id, image, votes) => {
 renderUserImage = (votes) => {
   votes.map(vote => {
     return $(`.${vote.button_id}_results`)
-      .append(`<img src=${vote.photo}
-                alt="user image"
-                class="vote-photo"
-              />`
-            );
+      .append(imgTemplate(vote));
   });
-}
+};

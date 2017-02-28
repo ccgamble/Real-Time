@@ -29,6 +29,7 @@ postPoll = () => {
   });
 }
 
-const postURL = (response) => {
+postURL = (response) => {
   $('body').append(`<a href ='/poll/?poll=${response.poll.id}'>Poll Link</a>`);
 };
+
