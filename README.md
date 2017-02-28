@@ -1,5 +1,5 @@
 # Real-Time
->A real time polling application.
+>A real time polling application. Visit https://cg-realtime.herokuapp.com/.
 
 ##Built With:
 * jQuery
