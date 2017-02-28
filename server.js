@@ -4,8 +4,7 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const md5 = require('md5');
-
-
+const countVotes = require('./public/countVotes.js')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,7 +33,6 @@ app.get('/poll', (request, response) => {
 app.get('/poll/*', (request, response) => {
 	response.sendFile(__dirname + '/public/poll.html');
 });
-
 
 app.get('/api/poll', (request, response) => {
 	response.json(app.locals.polls);
@@ -76,18 +74,5 @@ io.on('connection', (socket) => {
 		io.sockets.emit('usersConnected', io.engine.clientsCount);
 	});
 });
-
-const countVotes = (id, photo, name) => {
-	const vote_id = md5(name);
-	const filterVote = app.locals.votes.filter(vote => vote.name !== name);
-	app.locals.votes = filterVote;
-	app.locals.votes.push({
-		vote_id : vote_id,
-		button_id: id,
-		photo: photo,
-		name: name
-	});
-	return app.locals.votes;
-};
 
 module.exports = server;

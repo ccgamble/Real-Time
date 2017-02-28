@@ -3,4 +3,4 @@ imgTemplate = (vote) => {
             alt="user image"
             class="vote-photo"
           />`
-}
+};
