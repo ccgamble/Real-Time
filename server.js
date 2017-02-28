@@ -5,6 +5,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const md5 = require('md5');
 
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/public')));
@@ -12,7 +14,7 @@ app.locals.title = 'Real Time';
 app.locals.polls = [];
 app.locals.votes = [];
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const server = http.createServer(app)
                  .listen(port, () => {console.log(`Listening on port ${port}.`);
 });
@@ -62,7 +64,7 @@ io.on('connection', (socket) => {
 	socket.emit('statusMessage', 'You have connected.');
 
 	socket.on('voteCast', (id, photo, name) => {
-		countVotes(id, photo, name);
+		countVotes(id, photo, name, app);
 		socket.emit('statusMessage', 'Thanks for voting!');
 		io.sockets.emit('voteUpdate', id, photo, app.locals.votes);
 	});
