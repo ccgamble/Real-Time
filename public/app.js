@@ -32,4 +32,3 @@ postPoll = () => {
 postURL = (response) => {
   $('body').append(`<a href ='/poll/?poll=${response.poll.id}'>Poll Link</a>`);
 };
-
